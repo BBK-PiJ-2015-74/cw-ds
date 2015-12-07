@@ -1,5 +1,4 @@
 # cw-ds
-<<<<<<< HEAD
 
 /** 
 * This is the repository for Assignment 2 coursework for the Birkbeck Programming in Java course 
@@ -24,10 +23,11 @@
 * Ex 3. LinkedList is a class that implements interface List @see LinkedList.java
 */
 
-=======
-This is the repository for Assignment 2 coursework for the Birkbeck Programming in Java course
-Created in week 10 of the course
-3 December 2015
-Lucie Burgess, BBK-PiJ-2015-74
->>>>>>> 6f3eafb2135c42a57f22933bd9246c5696cbeffa
+/**
+* anything marked "//" are notes to be deleted before handing in
+*
+* Class Object (@see file Object.java) defines the Objects to go into the list
+*
+* Class ReturnObjectImpl is just a way of handling errors
+
 

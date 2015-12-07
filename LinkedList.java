@@ -1,31 +1,24 @@
 /**
 * This file contains an implementation of interface List, described in file List.java
 * @author Lburge01 BBK-PiJ-2015-75 (Lucie Burgess)
+*
+* all the text below here was copied from the List.java file to remind myself what I need to implement
+* All the script file will need to see is the List.java file
+* List.java is is the interface of LinkedList.java. LinkedList.java is the implementation of List.java
 */
 
 public class LinkedList implements List {
 
-/** all the text below here
-* was copied from the List.java file
-* to remind myself what I need to implement
-* All the script file will need to see is the List.java file
-* which is the interface of LinkedList.java
-*/
 
-public interface List {
-	/**
-	 * Returns true if the list is empty, false otherwise. 
-	 * 
-	 * @return true if the list is empty, false otherwise. 
-	 */
-	public boolean isEmpty();
+		/**
+	 	* @return true if the list is empty, false otherwise. 
+	 	*/
+		public boolean isEmpty();
 
-	/**
-	 * Returns the number of items currently in the list.
-	 * 
-	 * @return the number of items currently in the list
-	 */
-	public int size();
+		/**
+	 	* @return the number of items currently in the list
+	 	*/
+		public int size();
 
 	/**
 	 * Returns the element at the given position. 
@@ -85,4 +78,23 @@ public interface List {
 	 *         or containing an appropriate error message otherwise
 	 */
 	public ReturnObject add(Object item);
+	
+	private Object objectListStart ;
+	
+	public LinkedList (Person headPerson) { // constructor method PersonQueueImpl
+		this.headPerson = headPerson; 
+	}
+
+	public void insert (Person anotherPerson) { // iterative method insert, inserts anotherPerson at the back of the queue
+		if (headPerson == null) {
+			headPerson = anotherPerson;
+		} else if (headPerson.getNextPerson() == null) { 
+			headPerson.setNextPerson(anotherPerson); 
+		} else {
+			// set the pointer of anotherPerson
+			headPerson.setNextPerson(anotherPerson);  // link personHead to the nextPerson field of anotherPerson
+			anotherPerson.setNextPerson(anotherPerson.getNextPerson()); //link the nextPerson field of anotherPerson to the nextPerson of the one behind, another anotherPerson
+		}
+		System.out.println("The person " + anotherPerson.getName() + "was added to the queue");
+	}
 }
