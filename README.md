@@ -19,15 +19,25 @@
 *
 *
 * Files I have created 
-* Ex 1. ReturnObjectImpl.java is a class that implements interface ReturnObject
-* Ex 3. LinkedList is a class that implements interface List @see LinkedList.java
+* Ex 1. ReturnObjectImpl.java is a class that implements interface ReturnObject, and is just a way of handling errors
+* Ex 2. ArrayListImpl is a class that implements interface List @see ArrayListImpl.java
+* Ex 3. LinkedListImpl is a class that implements interface List @see LinkedListImpl.java
+* There is also a test of interface List called ListTest.java (this should work the same for both ArrayListImpl and LinkedListImpl
 */
 
 /**
 * anything marked "//" are notes to be deleted before handing in
 *
-* Class Object (@see file Object.java) defines the Objects to go into the list
-*
 * Class ReturnObjectImpl is just a way of handling errors
+* Note that constructors do not have to have all the fields in the class: think of the slots analogy
+* Constructors have a special syntax public Classname () {
+* 										fields which are instantiated in the class go here
+* 										}
+*/
+
+/**
+* As at Tuesday 15th December, ReturnObjectImpl.java compiles
+* Can't get the test script to work though. This won't compile. Perhaps need to test it with a real linked list?
+*/
 
 

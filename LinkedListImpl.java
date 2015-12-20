@@ -4,21 +4,50 @@
 *
 * all the text below here was copied from the List.java file to remind myself what I need to implement
 * All the script file will need to see is the List.java file
-* List.java is is the interface of LinkedList.java. LinkedList.java is the implementation of List.java
+* LinkedListImpl is an implementation of interface List, using pointers to create the LinkedList
+* Objects are objects in the list. Once an object is in the list it forms a new LinkedList
 */
 
-public class LinkedList implements List {
+public class LinkedListImpl implements List {
+	
+	Object obj;
+	LinkedListImpl nextList;
+	
+	/**
+	* Constructor of LinkedListImpl
+	*/
+	
+	public LinkedListImpl() { // constructor instantiating the class LinkedList
+	} 	
+	
+	/**
+	 * @return true if the list is empty, false otherwise. 
+	 */
+	//@return boolean - need to sort out javadoc comments
+	public boolean isEmpty() { // method isEmpty, does not take parameters, returns a boolean
+		if (obj == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-
-		/**
-	 	* @return true if the list is empty, false otherwise. 
-	 	*/
-		public boolean isEmpty();
-
-		/**
-	 	* @return the number of items currently in the list
-	 	*/
-		public int size();
+	/**
+	 * @return the number of items currently in the list
+	 */
+	public int size();
+		if (obj == null) {
+			return 0;
+		} else if (nextList == null) {
+			return 1;
+		} else {
+			return (1 + nextList.size());
+		} 
+	}
+			
+			
+		
+		
 
 	/**
 	 * Returns the element at the given position. 
@@ -64,7 +93,10 @@ public class LinkedList implements List {
 	 * @return an ReturnObject, empty if the operation is successful
 	 *         or containing an appropriate error message otherwise
 	 */
-	public ReturnObject add(int index, Object item);
+	public ReturnObject add(int index, Object item) {
+	}
+
+
 
 	/**
 	 * Adds an element at the end of the list.
@@ -77,24 +109,33 @@ public class LinkedList implements List {
 	 * @return an ReturnObject, empty if the operation is successful
 	 *         or containing an appropriate error message otherwise
 	 */
-	public ReturnObject add(Object item);
+	public ReturnObject add(Object item) { // item is the name of the slot, object is the physical memory we have allocated
 	
-	private Object objectListStart ;
-	
-	public LinkedList (Person headPerson) { // constructor method PersonQueueImpl
-		this.headPerson = headPerson; 
-	}
-
-	public void insert (Person anotherPerson) { // iterative method insert, inserts anotherPerson at the back of the queue
-		if (headPerson == null) {
-			headPerson = anotherPerson;
-		} else if (headPerson.getNextPerson() == null) { 
-			headPerson.setNextPerson(anotherPerson); 
-		} else {
-			// set the pointer of anotherPerson
-			headPerson.setNextPerson(anotherPerson);  // link personHead to the nextPerson field of anotherPerson
-			anotherPerson.setNextPerson(anotherPerson.getNextPerson()); //link the nextPerson field of anotherPerson to the nextPerson of the one behind, another anotherPerson
+		if (item == null) {
+			return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
 		}
-		System.out.println("The person " + anotherPerson.getName() + "was added to the queue");
+	
+		// list is empty
+		if (obj == null) {
+			obj = item;
+		}
+			
+		// we are at the end of the list
+		} else if (nextList == null) {
+			linkedList l  = new linkedList();
+			l.add(item);
+			nextList = l;	
+		// add an item to the list (because the objects themselves don't have pointers)
+		} else {
+			nextList.add(item);
+		}
+		return new ReturnObjectImpl(null);
 	}
+		
+			
+		 
+		 
+		
+	
+	
 }
