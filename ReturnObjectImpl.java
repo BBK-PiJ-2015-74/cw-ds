@@ -19,7 +19,7 @@ public class ReturnObjectImpl implements ReturnObject {
  	public ReturnObjectImpl (Object myObject) {
 		this.myObject = myObject;
 		this.myError = ErrorMessage.NO_ERROR;
-		whetherThereIsAnError = false;
+		this.whetherThereIsAnError = false;
 	}
 	
  	/**
@@ -30,8 +30,13 @@ public class ReturnObjectImpl implements ReturnObject {
  	*/
  	
 	public ReturnObjectImpl (ErrorMessage myError) {
-		this.myError = myError;
-		whetherThereIsAnError = true;
+		//this.myObject = null; 			// according to spec of getReturnValue(), if there is no error, getReturnValue may return myObject which can be null
+		if (myError == ErrorMessage.NO_ERROR) {
+			this.whetherThereIsAnError = false;
+		} else {
+			this.whetherThereIsAnError = true;
+		}
+		this.myError = myError;	
  	}
 	
 	/**
@@ -43,11 +48,7 @@ public class ReturnObjectImpl implements ReturnObject {
 	 */
 	@Override
 	public boolean hasError() {
-		if (myObject == null) {
-			return true;
-		} else {
 		return whetherThereIsAnError;
-		}
 	}
 
 	/**
@@ -57,13 +58,12 @@ public class ReturnObjectImpl implements ReturnObject {
 	 */
 	@Override
 	public ErrorMessage getError() {
-		if (whetherThereIsAnError == false) {
-			return myError = ErrorMessage.NO_ERROR;
-		} else if (myObject == null) {
-			return myError = ErrorMessage.EMPTY_STRUCTURE;
-		} else {
-			return myError;
-		}	
+		return myError;
+//		if (whetherThereIsAnError == false) {
+//			return ErrorMessage.NO_ERROR; 
+//		} else {
+//			return myError; 
+//		}	
 	}
 
 	/**
@@ -80,11 +80,10 @@ public class ReturnObjectImpl implements ReturnObject {
 	 */
 	@Override
 	public Object getReturnValue() {
-		return myObject;
+		if (whetherThereIsAnError == false) { // hasError() returns false, so getReturnValue will return myObject - which can be null
+			return myObject;
+		} else {
+			return null; // hasError() returns true
+		}
 	}
-
 }
-
-
- 
- 	
