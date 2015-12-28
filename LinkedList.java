@@ -5,7 +5,7 @@
  */
 public class LinkedList implements List {
 	
-	private Object obj;
+	private Object head;
 	private LinkedList nextList;
 	
 	/**
@@ -14,12 +14,12 @@ public class LinkedList implements List {
 	* nextList is the pointer to the rest of the list (which is empty if obj == null)
 	*/
 	public LinkedList() {
-		this.obj = obj;
+		this.head = null;
 		this.nextList = null; 
 	} 	
 
-	public Object getObject() { 		
-		return this.obj;
+	public Object getHead() { 		
+		return this.head;
 	}
 
 	public LinkedList getNextList() {
@@ -37,12 +37,13 @@ public class LinkedList implements List {
 	 */
 	@Override
 	public boolean isEmpty() {
-		if (obj == null) {
+		if (head == null) {
 			return true;
 		} else {
 			return false;
 		}
-	} // end of isEmpty()
+	}
+	
 	
 	/**
 	 * @see List#size()
@@ -51,7 +52,7 @@ public class LinkedList implements List {
 	 */
 	@Override
 	public int size() {
-		if (obj == null) {
+		if (head == null) { // list is empty
 			return 0;
 		} else if (this.nextList == null) { // we are at the end of the list
 			return 1;
@@ -71,8 +72,6 @@ public class LinkedList implements List {
 	 * 
 	 * LB NOTE: indexing starts at zero
 	 */
-
-	// try recursively
 	public ReturnObject get(int index) {
 				
 		if (index < 0 || index > (this.size()-1)) {
@@ -84,36 +83,52 @@ public class LinkedList implements List {
 		}
 			
 		else if (index == 0) { // index is within bounds, we are at start of list and list is not empty
-			return new ReturnObjectImpl(getObject());
+			return new ReturnObjectImpl(getHead());
 		}
 		
 		else {
-			return nextList.get(index-1);
+			return nextList.get(index-1); // ask the rest of the list, as if the next element is at index 0, i.e. as if next element is the head
 		}
-	} // end of get(index)
-				
-				
-//		} else if (index == (this.size()-1)) {
-//			LinkedList myList = new LinkedList();
-//			myList.get(index);
-//			nextList = myList;
-//			} else {
-//			nextList.get(index);
-//			}
-//		return new ReturnObjectImpl(this.nextList.obj);	
-//	}
-//			
-			
+	}
 
 	/** 
 	 * @see List#remove(int)
-	 * @param index - is the index of the element to be removed from the list, starting from the first element in the list which is zero
+	 * Returns the elements at the given position and removes it from the list. 
+	 * The indeces of elements after the removed element must be updated accordignly.
+	 * 
+	 * If the index is negative or greater or equal than the size of
+	 * the list, then an appropriate error must be returned.
+	 * 
+	 * @param index the position in the list of the item to be retrieved, starting at index == 0
+	 * @return the element or an appropriate error message, 
+	 *         encapsulated in a ReturnObject
 	 */
-//	@Override
-//	public ReturnObject remove(int index) {
-//		TO DO 
-//		return null;
-//	}
+	@Override
+	public ReturnObject remove(int index) {
+
+		if (this.head == null) {
+			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // if list is empty, @return EMPTY_STRUCTURE
+		}
+
+		if (index < 0 || index > (this.size()-1)) {
+			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is incorrect @return the appropriate error message
+		}
+		
+		else if (index == 0) {
+			ReturnObject myRO = new ReturnObjectImpl(this.head); // return object at head of list
+			if (nextList == null) {
+				this.head = null; // signals an empty list
+			} else {
+				head = nextList.getHead(); // copy object at the head of the list following, into the existing head, to leave a null object
+				this.nextList = nextList.getNextList(); // move pointer nextList to the list one along (nextList.getNext()), around the empty object
+			}	
+			return myRO;
+		
+		} else {
+			return nextList.remove(index-1); // remove next element like it's the head - if at n = 1, needs to be zero, so n-1
+		}
+		
+	}
 
 	/**
 	 * @see List#add(int, java.lang.Object)
@@ -144,12 +159,12 @@ public class LinkedList implements List {
 
 		if (index == 0) {
 			if (this.isEmpty()) {
-				obj = item; 	// if we are at the head of the list, and the list is empty, just add the object here
-			} else {			// insert newList here
+				head = item; 	// if list is empty, add item to head
+			} else {			// 
 				LinkedList newList = new LinkedList(); // create a new empty list, which will become the second element
-				newList.obj = this.getObject();       // this.getObject() is the object in the original list, which now becomes the object in the new list, leaving a space at the head of the list
-				this.obj = item;					// add the item to the space at the head of the list
-				newList.nextList = this.getNextList();	// link the tail of newList to nextList of head element
+				newList.head = this.getHead();       // copies value of head element, A, of existing list into the new empty list
+				this.head = item;					// adds item C into empty slot left by A
+				newList.nextList = this.getNextList();	// this.getNextList is pointer from head to object B after
 				this.nextList = newList;           // finally, set nextList of the new combined list
 			}
 			return new ReturnObjectImpl(null);
@@ -159,23 +174,7 @@ public class LinkedList implements List {
 		}
 	}
 
-		
-
 	
-//		// different method
-//		if (index != 0) {
-//			if (this.isEmpty()) {
-//				obj = item;
-//			} else {
-//				LinkedList listBefore = new LinkedList();
-//				listBefore.obj.get(index-1) = this.getObject();
-//				listBefore.add(item);
-//				LinkedList listAfter = new LinkedList();
-//				
-//			}
-//		}
-
-
 	/**
 	 * @see List#add(java.lang.Object)
 	 * Adds an element at the end of the list.
@@ -197,7 +196,7 @@ public class LinkedList implements List {
 		}
 		
 		if (this.isEmpty() == true) { // list is empty, add here
-			obj = item;
+			head = item;
 			
 		} else if (nextList == null) { // if we are at end of list
 			LinkedList newList  = new LinkedList();
@@ -206,56 +205,13 @@ public class LinkedList implements List {
 		} else {
 			nextList.add(item);
 		}
-		return new ReturnObjectImpl(null); // @return a ReturnObject, empty if the operation is successful - not sure why this should be null
+		return new ReturnObjectImpl(null); // @return a ReturnObject, empty if the operation is successful
 	}
 	
 } // end of LinkedListImpl class
 
 
-// Another way of trying 'get' which seemed not to work
-//@Override
-//public ReturnObject get(int index) {
-//	
-//	if (index < 0 || index > (this.size()-1)) {
-//		return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is incorrect @return the appropriate error message
-//	}
-//	
-//	if (this.isEmpty() == true) { 
-//		return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // if the list is empty @return the appropriate error message: obj == null
-//	}
-//		
-//	if (index == 0) {												// at start of list
-//		return new ReturnObjectImpl(this.prevList.obj);		// maybe just this.prevList.obj
-//		
-//	} else if (index == (this.size()-1)) {
-//		return new ReturnObjectImpl(this.nextList.obj);		// at end of list
-//																	// maybe just this.nextList.obj
-//		
-//	} else {
-//		int indexhere = 0;
-//		LinkedListImpl secondList = new LinkedListImpl();
-//		if (indexhere > (secondList.size()-1)/2) {				// calculate half way through list to find out which is most efficient access
-//			secondList = nextList;
-//			indexhere = secondList.size()-1;
-//			while (secondList.prevList != null) {				// there must be an easier recursive way of doing this
-//				if (indexhere == index) {
-//					break;
-//				}
-//				secondList = secondList.prevList;
-//				indexhere--;
-//			}
-//		} else {
-//			secondList = prevList;
-//			while (secondList.nextList != null) {
-//				if (indexhere == index) {
-//					break;
-//				secondList = secondList.nextList;
-//				indexhere++;
-//			}
-//		}
-//	return new ReturnObjectImpl(this.nextList.obj);
-//}
-		
+
 			
 		
 
