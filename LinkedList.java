@@ -37,7 +37,7 @@ public class LinkedList implements List {
 	 */
 	@Override
 	public boolean isEmpty() {
-		if (head == null) {
+		if (this.head == null) {
 			return true;
 		} else {
 			return false;
@@ -74,12 +74,12 @@ public class LinkedList implements List {
 	 */
 	public ReturnObject get(int index) {
 				
-		if (index < 0 || index > (this.size()-1)) {
-			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // index out of range
-		}
-				
 		if (this.isEmpty() == true) { 
 			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // empty structure, no object to retrieve, obj == null
+		}
+		
+		if (index < 0 || index > (this.size()-1)) {
+			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // index out of range
 		}
 			
 		else if (index == 0) { // index is within bounds, we are at start of list and list is not empty

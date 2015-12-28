@@ -22,7 +22,7 @@ public class LinkedListTest {
 	System.out.println("Test 2. Checking the list has size zero");
 	System.out.println(emptyList.size()==0? "Everything is working correctly" : "There is a problem");
 	
-	System.out.println("Test 3. Checking it returns EMPTY_STRUCTURE when get() is called");
+	System.out.println("Test 3. Checking it returns EMPTY_STRUCTURE when get(0) is called");
 	System.out.println(emptyList.get(0).getError()==ErrorMessage.EMPTY_STRUCTURE? "Everything is working correctly" : "There is a problem");
 	
 	System.out.println("Test 4. Checking it returns null when get() is called");
