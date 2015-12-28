@@ -1,43 +1,34 @@
 /**
- * LinkedListImpl.java is a pointer-based linked list implementation of interface List.java
+ * LinkedList.java is a pointer-based linked list implementation of interface List.java
  * @author Lburge01 BBK-PiJ-2015-75 (Lucie Burgess)
  *
  */
-public class LinkedListImpl implements List {
+public class LinkedList implements List {
 	
 	private Object obj;
-	private LinkedListImpl nextList;
-	// private LinkedListImpl prevList; // don't think I need this
+	private LinkedList nextList;
 	
 	/**
-	* Constructor of LinkedListImpl
+	* Constructor of LinkedList
 	* obj is the first object in the list
-	* nextList is the list (which is empty if obj == null)
+	* nextList is the pointer to the rest of the list (which is empty if obj == null)
 	*/
-	public LinkedListImpl() {
+	public LinkedList() {
+		this.obj = obj;
 		this.nextList = null; 
-		//this.prevList = null;		// don't think I need this
 	} 	
 
-//	public Object getObject() { 		// don't need these as can access private fields within own class
-//		return this.obj;
-//	}
-//	
-//	public LinkedListImpl getNext() {
-//		return this.nextList;
-//	}
-//	
-//	public void setNext(LinkedListImpl n) {
-//		this.nextList = n;
-//	}
-//	
-//	public LinkedListImpl getPrev() {
-//		return this.prevList;
-//	}
-//	
-//	public void setPrev(LinkedListImpl p) {
-//		this.prevList = p;
-//	}
+	public Object getObject() { 		
+		return this.obj;
+	}
+
+	public LinkedList getNextList() {
+		return this.nextList;
+	}
+	
+	public void setNextList(LinkedList newList) {
+		this.nextList = newList;
+	}
 	
 	
 	/**
@@ -51,22 +42,23 @@ public class LinkedListImpl implements List {
 		} else {
 			return false;
 		}
-	}
+	} // end of isEmpty()
 	
 	/**
 	 * @see List#size()
 	 * @return the number of items currently in the list
+	 * Note index starts at 0, so the number of items in the list is size = (index + 1)
 	 */
 	@Override
 	public int size() {
 		if (obj == null) {
 			return 0;
-		} else if (this.nextList == null) { // should nextList be getNext()
+		} else if (this.nextList == null) { // we are at the end of the list
 			return 1;
 		} else {
-			return (1 + nextList.size());
+			return (1 + nextList.size()); // not at the end of the list, count 1 and move to the next object in in the list until nextList == null
 		} 
-	}
+	} // end of size()
 	
 
 	/** 
@@ -76,38 +68,52 @@ public class LinkedListImpl implements List {
 	 * 
 	 * @param index the position in the list of the item to be retrieved
 	 * @return the element or an appropriate error message, encapsulated in a ReturnObject
+	 * 
+	 * LB NOTE: indexing starts at zero
 	 */
 
 	// try recursively
 	public ReturnObject get(int index) {
 				
 		if (index < 0 || index > (this.size()-1)) {
-			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is incorrect @return the appropriate error message
+			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // index out of range
 		}
 				
 		if (this.isEmpty() == true) { 
-			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // if the list is empty @return the appropriate error message: obj == null
-				
-		} else if (index == (this.size()-1)) {
-			LinkedListImpl myList = new LinkedListImpl();
-			myList.get(index);
-			nextList = myList;
-			} else {
-			nextList.get(index);
-			}
-		return new ReturnObjectImpl(this.nextList.obj);	
-	}
+			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // empty structure, no object to retrieve, obj == null
+		}
 			
+		else if (index == 0) { // index is within bounds, we are at start of list and list is not empty
+			return new ReturnObjectImpl(getObject());
+		}
+		
+		else {
+			return nextList.get(index-1);
+		}
+	} // end of get(index)
+				
+				
+//		} else if (index == (this.size()-1)) {
+//			LinkedList myList = new LinkedList();
+//			myList.get(index);
+//			nextList = myList;
+//			} else {
+//			nextList.get(index);
+//			}
+//		return new ReturnObjectImpl(this.nextList.obj);	
+//	}
+//			
 			
 
-	/* (non-Javadoc)
+	/** 
 	 * @see List#remove(int)
+	 * @param index - is the index of the element to be removed from the list, starting from the first element in the list which is zero
 	 */
-	@Override
-	public ReturnObject remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public ReturnObject remove(int index) {
+//		TO DO 
+//		return null;
+//	}
 
 	/**
 	 * @see List#add(int, java.lang.Object)
@@ -125,39 +131,50 @@ public class LinkedListImpl implements List {
 	 * @return an ReturnObject, empty if the operation is successful
 	 *         or containing an appropriate error message otherwise
 	 */
-//	@Override
-//	public ReturnObject add(int index, Object item) {
-//		
-//		LinkedListImpl myList = new LinkedListImpl();
-//		
-//		if (item == null) {
-//			return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT); // if a null object is provided, @return an appropriate error message
-//		}
-//		
-//		if (index < 0 || index > (myList.size()-1)) {
-//			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is incorrect @return the appropriate error message
-//		}
-//		
-//		if (obj == null) { // list is empty, therefore by definition index of object to be added is at position zero
-//			obj = item;
-//		}	
-//		
-//		else if (nextList == null) { // we are at end of list, therefore by definition the index of the object to be added is myList.size()-1
-//			myList.add(item);
-//		}
-//		return new ReturnObjectImpl(null); // @return a ReturnObject, empty if the operation is successful
-//		
-//		//if (nextList != null) { // we are in the middle of the list
-//		//	if (index == 0) { // add the new object at the start of the list
-//	}			
-					
+	@Override
+	public ReturnObject add(int index, Object item) {
+	
+		if (item == null) {
+			return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT); // can't add a null object to the list
+		}
+
+		if (index < 0 || index > (this.size()-1)) {
+			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is incorrect @return the appropriate error message
+		}
+
+		if (index == 0) {
+			if (this.isEmpty()) {
+				obj = item; 	// if we are at the head of the list, and the list is empty, just add the object here
+			} else {			// insert newList here
+				LinkedList newList = new LinkedList(); // create a new empty list, which will become the second element
+				newList.obj = this.getObject();       // this.getObject() is the object in the original list, which now becomes the object in the new list, leaving a space at the head of the list
+				this.obj = item;					// add the item to the space at the head of the list
+				newList.nextList = this.getNextList();	// link the tail of newList to nextList of head element
+				this.nextList = newList;           // finally, set nextList of the new combined list
+			}
+			return new ReturnObjectImpl(null);
+			
+		} else {
+			return nextList.add(index-1, item);
+		}
+	}
+
 		
-				// create a new List of the objects up until the index
-				//prevList = myList; // myList is now the previous part of the List
-				//myList.nextList = null; //set the pointer of myList to nextList to be null
-				//myList.add(item); // add the item using add()
-				//myList.add(myList);
-				
+
+	
+//		// different method
+//		if (index != 0) {
+//			if (this.isEmpty()) {
+//				obj = item;
+//			} else {
+//				LinkedList listBefore = new LinkedList();
+//				listBefore.obj.get(index-1) = this.getObject();
+//				listBefore.add(item);
+//				LinkedList listAfter = new LinkedList();
+//				
+//			}
+//		}
+
 
 	/**
 	 * @see List#add(java.lang.Object)
@@ -178,16 +195,18 @@ public class LinkedListImpl implements List {
 		if (item == null) { // if we try to add a null item to the list
 			return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT); // @return a ReturnObject containing an appropriate error message
 		}
-		if (obj == null) { // list is empty
+		
+		if (this.isEmpty() == true) { // list is empty, add here
 			obj = item;
+			
 		} else if (nextList == null) { // if we are at end of list
-			LinkedListImpl myList  = new LinkedListImpl();
-			myList.add(item);
-			nextList = myList;	
+			LinkedList newList  = new LinkedList();
+			newList.add(item);
+			nextList = newList;	
 		} else {
 			nextList.add(item);
 		}
-		return new ReturnObjectImpl(null); // @return a ReturnObject, empty if the operation is successful - should the ReturnObject be null or contain item?
+		return new ReturnObjectImpl(null); // @return a ReturnObject, empty if the operation is successful - not sure why this should be null
 	}
 	
 } // end of LinkedListImpl class
