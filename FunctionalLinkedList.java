@@ -37,15 +37,46 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
      */
 	@Override
     public FunctionalList rest() {
+		FunctionalList myFL = new FunctionalLinkedList();
     	if (this.isEmpty() == true) { // if the original list is empty, return an empty list
-    		FunctionalList myFL = new FunctionalLinkedList();
     		return myFL;
-    	} else {
-    		FunctionalList myFL = new FunctionalLinkedList();
-    		this.remove(0);
-    		myFL = this;
-    		return myFL;
+    	} else {	
+    		for (int index = 1; index < this.size(); index++) {
+    			Object obj = this.get(index).getReturnValue();
+    			myFL.add(obj);
+    		}
+			return myFL;
     	}
     }
-}
+	
+} // end of class
+
+
+
+//Previous code:
+//public FunctionalList rest() {
+//	if (this.isEmpty() == true) { // if the original list is empty, return an empty list
+//		FunctionalList myFL = new FunctionalLinkedList();
+//		return myFL;
+//	} else {
+//		FunctionalList myFL = new FunctionalLinkedList();
+//		this.remove(0);
+//		myFL = this;
+//		return myFL;
+//	}
+//}
+
+	
+// Recursive code from LinkedList.java
+//	if (this.isEmpty() == true) { // list is empty, add here
+//		head = item;
+//		
+//	} else if (nextList == null) { // if we are at end of list
+//		LinkedList newList  = new LinkedList();
+//		newList.add(item);
+//		nextList = newList;	
+//	} else {
+//		nextList.add(item);
+//	}
+//	return new ReturnObjectImpl(null); // @return a ReturnObject, empty if the operation is successful
 

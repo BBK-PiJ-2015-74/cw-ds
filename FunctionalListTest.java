@@ -49,7 +49,7 @@ public class FunctionalListTest {
 		 * @Test - check that objects can be added to the list
 		 */
 		
-		FunctionalList testFL = new FunctionalLinkedList();
+		FunctionalList originalFL = new FunctionalLinkedList();
 		
 		int object0 = 1;
 		double object1 = -1000.876;
@@ -62,33 +62,45 @@ public class FunctionalListTest {
 		String object8 = "Christmas is coming and the goose is getting fat";
 		int object9 = -25;
 		
-		testFL.add(object0);
-		testFL.add(object1);
-		testFL.add(object2);
-		testFL.add(object3);
-		testFL.add(object4);
-		testFL.add(object5);
-		testFL.add(object6);
-		testFL.add(object7);
-		testFL.add(object8);
-		testFL.add(object9);
-		int testIndex = testFL.size();
+		originalFL.add(object0);
+		originalFL.add(object1);
+		originalFL.add(object2);
+		originalFL.add(object3);
+		originalFL.add(object4);
+		originalFL.add(object5);
+		originalFL.add(object6);
+		originalFL.add(object7);
+		originalFL.add(object8);
+		originalFL.add(object9);
+		int sizeOfOriginalList = originalFL.size();
 
-		System.out.println("Test 8. Checking we can print the full functional list with all " + testIndex + " elements");
-		System.out.println(printList(testFL));
-		System.out.println("The size of the list is " + testFL.size() + "\n");
+		System.out.println("Test 8. Checking we can print the full functional list with all " + sizeOfOriginalList + " elements");
+		System.out.println(printList(originalFL));
+		System.out.println("The size of the list is " + originalFL.size() + "\n");
+	
+		FunctionalList inputFL = new FunctionalLinkedList();	
+		inputFL = originalFL;
+		FunctionalList outputFL = new FunctionalLinkedList();
 		
-		for (int count = 0; count <= testIndex; count++) { 
-			int testnumber = 10;
+		for (int count = 0; count <= sizeOfOriginalList; count++) { 
+
+			int testnumber = 9;
 			System.out.println("*************Test " + (testnumber+count) + "****************" +"\n");
+			
 			System.out.println("Checking the head of the list is returned when head() is called");
-			System.out.println(testFL.head().getReturnValue());
+			System.out.println(inputFL.head().getReturnValue());
 			System.out.println("Checking the appropriate error message or NO_ERROR is returned");
-			System.out.println(testFL.head().getError());
+			System.out.println(inputFL.head().getError());
 			System.out.println("Checking the list is returned without the first element when rest() is called");
-			System.out.println(printList(testFL.rest()));
-			System.out.println("The size of the list is now " + testFL.size()+ "\n");
+			outputFL = inputFL.rest();
+			System.out.println(printList(outputFL));
+			System.out.println("The size of the output list is now " + outputFL.size());
+			System.out.println("The size of the original list is still " + originalFL.size()+ "\n");
+			inputFL = outputFL;	
 		}
+	
+		System.out.println("To prove the original list is still unchanged, here it is:");
+		System.out.println(printList(originalFL));
 
 	} // end of psvm
 

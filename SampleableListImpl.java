@@ -32,4 +32,15 @@ public class SampleableListImpl extends LinkedList implements SampleableList {
 
 } // end of class
 
-// this also works with removing elements 0, 1, 2, 3, 4 ... in succession from the original list (the indices are updated as the loop progresses)
+// the following code also works with removing elements 0, 1, 2, 3, 4 ... in succession from the original list (the indices are updated as the loop progresses)
+// hence it doesn't remove them all, but in fact just elements 1,3,5,7 ... from the original list
+// but changes the original list. In this question it's not stated whether or not it matters if the underlying list changes
+// from line 23 in the else statement:
+// } else {
+// 		for (int index = 0; (index < this.size(); index++) {
+// 			FunctionalList myFL = new FunctionalLinkedList();
+//			this.remove(index);
+//			myFL = this;
+//			return myFL;
+// 		}
+// }
