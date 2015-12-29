@@ -35,7 +35,7 @@ public class SampleableListTest {
 		 * @Test - check that objects can be added to the list
 		 */
 		
-		SampleableList testSL = new SampleableListImpl();
+		SampleableList listToBeSampled = new SampleableListImpl();
 		
 		int object0 = 1;
 		double object1 = -1000.876;
@@ -48,37 +48,69 @@ public class SampleableListTest {
 		String object8 = "Christmas is coming and the goose is getting fat";
 		int object9 = -25;
 		
-		testSL.add(object0);
-		testSL.add(object1);
-		testSL.add(object2);
-		testSL.add(object3);
-		testSL.add(object4);
-		testSL.add(object5);
-		testSL.add(object6);
-		testSL.add(object7);
-		testSL.add(object8);
-		testSL.add(object9);
+		listToBeSampled.add(object0);
+		listToBeSampled.add(object1);
+		listToBeSampled.add(object2);
+		listToBeSampled.add(object3);
+		listToBeSampled.add(object4);
+		listToBeSampled.add(object5);
+		listToBeSampled.add(object6);
+		listToBeSampled.add(object7);
+		listToBeSampled.add(object8);
+		listToBeSampled.add(object9);
 
 		System.out.println("Test 8. Checking we can print the orginal sampleable list, i.e. to be sampled");
-		System.out.println(printList(testSL));
-		System.out.println("The size of the list is " + testSL.size() + "\n");
+		System.out.println(printList(listToBeSampled));
+		System.out.println("The size of the list is " + listToBeSampled.size() + "\n");
 		
 		/**
 		 * @Test - return the sampled list
 		 */
 		System.out.println("Test 9. Checking the sampled list is returned when sample() is called");
-		System.out.println(printList(testSL.sample()));
+		System.out.println(printList(listToBeSampled.sample()));
+	
+		
+		SampleableList anotherlistToBeSampled = new SampleableListImpl();
+		
+		anotherlistToBeSampled.add("zero");
+		anotherlistToBeSampled.add("one");
+		anotherlistToBeSampled.add("two");
+		anotherlistToBeSampled.add("three");
+		anotherlistToBeSampled.add("four");
+		anotherlistToBeSampled.add("five");
+		anotherlistToBeSampled.add("six");
+		anotherlistToBeSampled.add("seven");
+		anotherlistToBeSampled.add("eight");
+		anotherlistToBeSampled.add("nine");
+		anotherlistToBeSampled.add("ten");
+		anotherlistToBeSampled.add("eleven");
+		anotherlistToBeSampled.add("twelve");
+		anotherlistToBeSampled.add("thirteen");
+		anotherlistToBeSampled.add("fourteen");
+		anotherlistToBeSampled.add("fifteen");
+		
+		System.out.println("Test 10. Checking we can print the orginal sampleable list, i.e. to be sampled");
+		System.out.println(printList(anotherlistToBeSampled));
+		System.out.println("The size of the list is " + anotherlistToBeSampled.size() + "\n");
+		
+		/**
+		 * @Test - return the sampled list
+		 */
+		System.out.println("Test 11. Checking the sampled list is returned when sample() is called");
+		System.out.println(printList(anotherlistToBeSampled.sample()));
+		
+		
 
 
 	} // end of psvm
 
-	public static String printList(SampleableList testSL) { 
-		if (testSL.isEmpty()) {
+	public static String printList(SampleableList listToBeSampled) { 
+		if (listToBeSampled.isEmpty()) {
 			return "The list is empty";
 		} else {
 			String s = "";
-			for (int i=0; i <= testSL.size()-1; i++) {
-				s = s + ("Element " + i + " is: " + testSL.get(i).getReturnValue().toString() +"\n");
+			for (int i=0; i <= listToBeSampled.size()-1; i++) {
+				s = s + ("Element " + i + " is: " + listToBeSampled.get(i).getReturnValue().toString() +"\n");
 			}
 			return s;
 		}

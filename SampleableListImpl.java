@@ -16,32 +16,20 @@ public class SampleableListImpl extends LinkedList implements SampleableList {
 	 */
 	@Override
 	public SampleableList sample() {
-		if (this.isEmpty()) {
-			SampleableList mySL = new SampleableListImpl();
+		
+		SampleableList mySL = new SampleableListImpl();
+		if (this.isEmpty()) {	
 			return mySL;
 		} else {
-			SampleableList mySL = new SampleableListImpl();
-//			int index = 0;
-//			for (index = 1; (index >= this.size()); index+=2) {
-//				ReturnObject RO = this.get(index);
-//				mySL.add(RO);
-//			}
-			ReturnObject RO = this.get(1);
-			mySL.add(RO);
-			ReturnObject RO3 = this.get(3);
-			mySL.add(RO3);
-			ReturnObject RO5 = this.get(5);
-			mySL.add(RO5);
-			ReturnObject RO7 = this.get(7);
-			mySL.add(RO7);
+			int index = 0;
+			for (index = 1; (index < this.size()); index+=2) {
+				Object obj = this.get(index).getReturnValue();
+				mySL.add(obj);
+			}
 			return mySL;
 		}
 	}
 
 } // end of class
 
-// for (index = 0; (index >= this.size()); index+=2) {
-//	this.remove(index);
-//	mySL = this;
-//	return mySL;
-//}
+// this also works with removing elements 0, 1, 2, 3, 4 ... in succession from the original list (the indices are updated as the loop progresses)
