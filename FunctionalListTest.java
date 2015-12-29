@@ -74,29 +74,18 @@ public class FunctionalListTest {
 		testFL.add(object9);
 		int testIndex = testFL.size();
 
-		System.out.println("Test 8. Checking we can print the functional list");
+		System.out.println("Test 8. Checking we can print the full functional list with all " + testIndex + " elements");
 		System.out.println(printList(testFL));
 		System.out.println("The size of the list is " + testFL.size() + "\n");
 		
-		/**
-		 * @Test - return the head of the list when head() is called
-		 */
-		System.out.println("Test 9. Checking the head of the list is returned when head() is called");
-		System.out.println(testFL.head().getReturnValue() + "\n");
-		
-		/**
-		 * @Test - return the list without the head when rest() is called
-		 */	
-		System.out.println("Test 10. Checking the list is returned without the first element when rest() is called");
-		System.out.println(printList(testFL.rest()));
-		System.out.println("The size of the list is now " + testFL.size()+ "\n");
-		
 		for (int count = 0; count <= testIndex; count++) { 
-			int testintA = 11;
-			int testintB = 12;
-			System.out.println("Test " + (testintA+2*count) + ". Checking the head of the list is returned when head() is called");
-			System.out.println(testFL.head().getReturnValue() + "\n");
-			System.out.println("Test " + (testintB+2*count) + ". Checking the list is returned without the first element when rest() is called");
+			int testnumber = 10;
+			System.out.println("*************Test " + (testnumber+count) + "****************" +"\n");
+			System.out.println("Checking the head of the list is returned when head() is called");
+			System.out.println(testFL.head().getReturnValue());
+			System.out.println("Checking the appropriate error message or NO_ERROR is returned");
+			System.out.println(testFL.head().getError());
+			System.out.println("Checking the list is returned without the first element when rest() is called");
 			System.out.println(printList(testFL.rest()));
 			System.out.println("The size of the list is now " + testFL.size()+ "\n");
 		}

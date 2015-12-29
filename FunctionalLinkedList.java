@@ -40,10 +40,6 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
     	if (this.isEmpty() == true) { // if the original list is empty, return an empty list
     		FunctionalList myFL = new FunctionalLinkedList();
     		return myFL;
-    	}
-    	if(this.size() == 1) { // if the original list has only one element, return an empty list
-    		FunctionalList myFL = new FunctionalLinkedList();
-    		return myFL;
     	} else {
     		FunctionalList myFL = new FunctionalLinkedList();
     		this.remove(0);
@@ -52,3 +48,4 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
     	}
     }
 }
+
