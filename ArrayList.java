@@ -7,11 +7,13 @@
 public class ArrayList implements List {
 	
 	private Object[] objectArray; // means an array of Objects
+	private int size;
 	private static int basearraylength = 50; 
 
 	
 	public ArrayList() { // constructor
 		this.objectArray = new Object[ArrayList.basearraylength]; //arrays have a special type of constructor e.g. String[] employeeArray = new String[5];
+		this.size = 0;
 	}
 
 	 /**
@@ -34,13 +36,14 @@ public class ArrayList implements List {
 	 */
 	@Override
 	public int size() {
-		int result = 0;
-		for (int i = 0; i < this.objectArray.length; i++) {
-			if (this.objectArray[i] != null) {
-				result ++;
-			} 
-		}
-		return result;
+		return size; 
+//		int result = 0;
+//		for (int i = 0; i < this.objectArray.length; i++) {
+//			if (this.objectArray[i] != null) {
+//				result ++;
+//			} 
+//		}
+//		return result;
 	}
 	
 	/**
@@ -98,6 +101,7 @@ public class ArrayList implements List {
 			}
 			
 			ReturnObject objectRemoved = new ReturnObjectImpl(this.objectArray[index]);
+			size--;
 			
 			for (i = index; i< this.size(); i++) {
 				objectArray[i] = destArray[i+1];	// copy everything back from destArray (at position i+1) into objectArray (at position i), starting at the index
@@ -152,6 +156,7 @@ public class ArrayList implements List {
 		}
 		
 		objectArray[index] = item;			// at item at index
+		size++;
 		
 		for (i = index; i< this.size(); i++) {
 			objectArray[i+1] = destArray[i];// copy everything back from destArray (at position i) into objectArray (at position i + 1), starting at the index
@@ -179,6 +184,7 @@ public class ArrayList implements List {
 			this.increaseBaseArrayLength(); //if base array is full, increase its length
 		}
 		this.objectArray[this.size()] = item;     // add item to the next free element in the array
+		size++;
 		return new ReturnObjectImpl(null); // ReturnObject is null for a successful operation
 	}	
 
