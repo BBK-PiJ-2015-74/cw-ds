@@ -6,30 +6,28 @@
  */
 public class ArrayList implements List {
 	
-	private Object[] array; // means an array of Objects
-	private static int basearraylength; 
+	private Object[] objectArray; // means an array of Objects
+	private static int basearraylength = 50; 
+
 	
 	public ArrayList() { // constructor
-		ArrayList.basearraylength = 50; // define array to be 50 elements in length to start with	
-		this.array = new Object [ArrayList.basearraylength]; //arrays have a special type of constructor e.g. String[] employeeArray = new String[5];
+		this.objectArray = new Object[ArrayList.basearraylength]; //arrays have a special type of constructor e.g. String[] employeeArray = new String[5];
 	}
-	
+
 	 /**
 	  *  @return true if the list is empty, false otherwise. 
 	  */
 	@Override
 	public boolean isEmpty() {
 		boolean result = true;
-		for (int i = 0; i < this.array.length; i ++) {
-			if (this.array[i] == null) {
-				result = true;	
-			} else {
+		for (int i = 0; i < this.objectArray.length; i++) {
+			if (this.objectArray[i] != null) {
 				result = false;
+				return result;
 			}
 		}
 		return result;
 	}
-	
 	
 	/**
 	 * @return the number of items currently in the list
@@ -37,8 +35,8 @@ public class ArrayList implements List {
 	@Override
 	public int size() {
 		int result = 0;
-		for (int i = 0; i < this.array.length; i++) {
-			if (this.array[i] != null) {
+		for (int i = 0; i < this.objectArray.length; i++) {
+			if (this.objectArray[i] != null) {
 				result ++;
 			} 
 		}
@@ -62,11 +60,11 @@ public class ArrayList implements List {
 			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // if the list is empty @return the appropriate error message
 		}
 		
-		if (index < 0 || index > (this.size()-1)) {
+		if (index < 0 || index > (this.size()-1)) {  // if this.size is 4, max index is 3
 			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is out of range @return the appropriate error message
 			
 		} else {
-			return new ReturnObjectImpl(this.array[index]);
+			return new ReturnObjectImpl(objectArray[index]);
 		}
 	}
 
@@ -85,18 +83,30 @@ public class ArrayList implements List {
 	@Override
 	public ReturnObject remove(int index) {
 		
+		if (this.isEmpty() == true) { 
+			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // if the list is empty @return the appropriate error message
+		}
+		
 		if (index < 0 || index > (this.size()-1)) {
 			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
 			
-		} else {
-			ReturnObject objectRemoved = new ReturnObjectImpl(this.array[index]);
-			for (int i=index; i < this.size(); i++) {
-				this.array[i-1] = this.array[i]; // removing object leaves a gap, pull each object down 1 in the array
+		} else {		
+			Object[] destArray = new Object [this.objectArray.length];	
+			int i = 0;
+			for (i = index; i< this.size(); i++) { 
+				destArray[i] = objectArray[i];	//Copy every element from objectArray into destArray (remember destArray = srcArray) starting at the index
 			}
-		if (this.size() == basearraylength/2) {
-			this.decreaseBaseArrayLength(); //if base array is half the size required, decrease its length
-		}
-		return objectRemoved;
+			
+			ReturnObject objectRemoved = new ReturnObjectImpl(this.objectArray[index]);
+			
+			for (i = index; i< this.size(); i++) {
+				objectArray[i] = destArray[i+1];	// copy everything back from destArray (at position i+1) into objectArray (at position i), starting at the index
+			}
+			
+			if (baseArrayNeedsToBeSmaller()) {
+				this.decreaseBaseArrayLength(); //if base array is full, increase its length
+			}
+			return objectRemoved;
 		}
 	}
 	
@@ -123,18 +133,30 @@ public class ArrayList implements List {
 			return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
 		}
 		
-		if (this.size() == basearraylength) {
-			this.increaseBaseArrayLength();      //if base array is full, increase its length
+		if (index < 0 || index > (this.size()-1)) {
+			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+		}
+		
+		if (baseArrayNeedsToBeLarger()) {
+			this.increaseBaseArrayLength(); //if base array is full, increase its length
 		}
 		
 		// first of all we have to find the element in the array where to add the item. 
 		// Then shift everything up the array by 1 to make a space
+		
 		int i = 0;
+		Object[] destArray = new Object [this.objectArray.length];	
+		
 		for (i = index; i< this.size(); i++) { 
-			this.array[i+1] = this.array[index];						//destArray[i] = srcArray[i];
+			destArray[i] = objectArray[i];	//Copy every element from objectArray into destArray (remember destArray = srcArray) starting at the index
 		}
-		this.array[index]=item;
-		return new ReturnObjectImpl(null); // ReturnObject is null for a successful operation
+		
+		objectArray[index] = item;			// at item at index
+		
+		for (i = index; i< this.size(); i++) {
+			objectArray[i+1] = destArray[i];// copy everything back from destArray (at position i) into objectArray (at position i + 1), starting at the index
+		}
+		return new ReturnObjectImpl(null); // ReturnObject is null for a successful operation when adding an object
 	}	
 	
 	/**
@@ -153,41 +175,44 @@ public class ArrayList implements List {
 		if (item == null) {
 			return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
 		}
-		if (this.isEmpty()) {
-			this.array[0] = item;
-			return new ReturnObjectImpl(null);
-		} else {
-			if (this.size() == basearraylength) {
-				this.increaseBaseArrayLength(); //if base array is full, increase its length
-			}
-			this.array[this.size()] = item;     // add item to the next free element in the array
-			return new ReturnObjectImpl(null); // ReturnObject is null for a successful operation
-		}	
-	}
+		if (baseArrayNeedsToBeLarger()) {
+			this.increaseBaseArrayLength(); //if base array is full, increase its length
+		}
+		this.objectArray[this.size()] = item;     // add item to the next free element in the array
+		return new ReturnObjectImpl(null); // ReturnObject is null for a successful operation
+	}	
 
 	
 	/**
 	 * Increases the size of the base array into which the objects will be added, if necessary
 	 */
 	private void increaseBaseArrayLength() {
-		int basearraylength = this.array.length;
-		int increasedbasearraylength = 2*basearraylength;
+		int currentarraylength = this.objectArray.length;
+		int increasedbasearraylength = 2*currentarraylength;
 		
 		Object[] biggerArray = new Object [increasedbasearraylength];
 		
 		int i = 0;
 		for (i = 0; i < this.size(); i++) {
-			biggerArray[i] = this.array[i];
+			biggerArray[i] = this.objectArray[i];
 		}
-		this.array = biggerArray;
+		this.objectArray = biggerArray;
 	}
 	
+	private boolean baseArrayNeedsToBeLarger() {
+		boolean result = false;
+		if (this.size() >= this.objectArray.length) {
+			result = true;
+			return result;
+		}
+		return result;
+	}
 	
 	/**
 	 * Decreases the size of the base array from which objects will be removed, if necessary
 	 */
 	private void decreaseBaseArrayLength() {
-		int basearraylength = this.array.length;
+		int basearraylength = this.objectArray.length;
 		
 		int decreasedbasearraylength = basearraylength/2; // dividing by 2 will return an int, not a double - will be rounded to nearest int
 		
@@ -199,10 +224,18 @@ public class ArrayList implements List {
 		
 		int i = 0;
 		for (i = 0; i < this.size(); i++) {
-			smallerArray[i] = this.array[i];
+			smallerArray[i] = this.objectArray[i];
 		}
-		this.array = smallerArray;
+		this.objectArray = smallerArray;
 	}
 	
+	private boolean baseArrayNeedsToBeSmaller() {
+		boolean result = false;
+		if (this.size() <= this.objectArray.length/2) {
+			result = true;
+			return result;
+		}
+		return result;
+	}
 
 } // end of class
