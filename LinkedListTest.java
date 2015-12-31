@@ -1,9 +1,10 @@
 
 /**
- * LinkedListTest is a test of interface list, in this case constructed to work with the LinkedList.java
- * @author Lburge01 BBK-PiJ-2015-75 (Lucie Burgess)
+ * LinkedListTest is a test of interface List, in this case constructed to work with implementation LinkedList.java
+ * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
  *
  */
+
 public class LinkedListTest {
 
 	/**
@@ -60,10 +61,10 @@ public class LinkedListTest {
 	testList.add(object9);
 
 	System.out.println("Test 6. Checking we can print the list");
-	System.out.println(printList(testList));
+	printList(testList);
 	
 	System.out.println("Test 7. Checking we can print the list");
-	System.out.println(printListWithCommas(testList));
+	printListWithCommas(testList);
 	
 	System.out.println("Test 8. Checking the size of the list - should have 10 elements");
 	System.out.println(testList.size()==10? "Everything is working correctly" : "There is a problem");
@@ -79,14 +80,14 @@ public class LinkedListTest {
 	testRO = testList.get(0);
 	System.out.println(testRO.getReturnValue()!=null? "Everything is working correctly" : "There is a problem");
 	
-	System.out.println("Test 12. Calling get(-2) should return error INDEX_OUT_OF_BOUNDS");
-	testRO = testList.get(-2);
+	System.out.println("Test 12. Calling get(10) should return error INDEX_OUT_OF_BOUNDS");
+	testRO = testList.get(10);
 	System.out.println(testRO.getError() + " should be INDEX_OUT_OF_BOUNDS");
 	
-	System.out.println(printList(testList));
+	printList(testList);
 	
-	System.out.println("Test 13. Can return the element of the list at index 0 by calling get(0)");
-	testRO = testList.get(0);
+	System.out.println("Test 13. Can return the element of the list at index 4 by calling get(4)");
+	testRO = testList.get(4);
 	System.out.println(testRO.getReturnValue());
 	
 	System.out.println("Test 14. Can return the element of the list at index 1 by calling get(1)");
@@ -110,23 +111,23 @@ public class LinkedListTest {
 	double object13 = 13.333;
 	String object15 = "The rinky dink panther";
 	
-	System.out.println("Test 17. Add object 10 at position zero");
+	System.out.println("Test 17. Add 'Merry Christmas' at position zero");
 	testList.add(0,object10);
-	System.out.println(printListWithCommas(testList));
+	printListWithCommas(testList);
 	System.out.println("This test should return 'Merry Christmas' at index 0 of the list");
 	System.out.println(testList.get(0).getReturnValue().toString());
 	System.out.println("The size of the list is now " + testList.size()+ "\n");
 	
 	System.out.println("Test 18. Add object 13 at position 4");
 	testList.add(4,object13);
-	System.out.println(printListWithCommas(testList));
+	printListWithCommas(testList);
 	System.out.println("This test should return 13.300 at index 4 of the list");
 	System.out.println(testList.get(4).getReturnValue().toString());
 	System.out.println("The size of the list is now " + testList.size()+ "\n");
 	
 	System.out.println("Test 19. Add object 15 at position 10");
 	testList.add(10,object15);
-	System.out.println(printListWithCommas(testList));
+	printListWithCommas(testList);
 	System.out.println("This test should return 'The rinky dink panther' at index 10 of the list");
 	System.out.println(testList.get(10).getReturnValue());
 	System.out.println("The size of the list is now " + testList.size()+ "\n");
@@ -134,7 +135,7 @@ public class LinkedListTest {
 	System.out.println("Test 20. Add object11 at the end of the list");
 	testList.add(object11);
 	System.out.println("The size of the list is now " + testList.size()+ "\n");
-	System.out.println(printList(testList));
+	printList(testList);
 	System.out.println("The last element in the list should be 'and a happy New Year' ");
 	System.out.println(testList.get(testList.size()-1).getReturnValue() + "\n");
 	
@@ -163,35 +164,42 @@ public class LinkedListTest {
 	System.out.println(testRO.hasError()==true ? testRO.getError() : testRO.getReturnValue());
 	System.out.println("Test 26. The return value should be null: " + testRO.getReturnValue()+ "\n");
 	
-	System.out.println(printList(testList));
+	printList(testList);
 	System.out.println("The size of the list is now " + testList.size()+ "\n");
 	
 	/**
 	 * @Test - test remove (index) without errors
 	 */
 	System.out.println("Test 27. Removing object at position zero");
+	System.out.println("The object to be removed is: " + testList.get(0).getReturnValue());
+	System.out.println("Test list before removal is:");
+	printList(testList);
 	testList.remove(0);
-	System.out.println(printListWithCommas(testList));
+	System.out.println("Test list after removal is:");
+	printList(testList);
 	System.out.println("This test should return '1' at index 0 of the list");
 	System.out.println(testList.get(0).getReturnValue());
 	System.out.println("The size of the list is now " + testList.size()+ "\n");
 
 	System.out.println("Test 28. Removing object at position 4");
+	System.out.println("The object to be removed is: " + testList.get(4).getReturnValue());
 	testList.remove(4);
-	System.out.println(printListWithCommas(testList));
+	printListWithCommas(testList);
 	System.out.println("This test should return 'c' at index 4 of the list");
 	System.out.println(testList.get(4).getReturnValue());
 	System.out.println("The size of the list is now " + testList.size()+ "\n");
 	
 	System.out.println("Test 29. Removing object at position 7");
+	System.out.println("The object to be removed is: " + testList.get(7).getReturnValue());
 	testList.remove(7);
-	System.out.println(printListWithCommas(testList));
+	printListWithCommas(testList);
 	System.out.println("This test should return 'The rinky dink panther' at index 7 of the list");
 	System.out.println(testList.get(7).getReturnValue());
 	System.out.println("The size of the list is now " + testList.size()+ "\n");
 	
-	System.out.println(printListWithCommas(testList));
+	printListWithCommas(testList);
 	System.out.println("Test 30. Removing the final object in the list");
+	System.out.println("The object to be removed is: " + testList.get((testList.size()-1)).getReturnValue());
 	testList.remove(testList.size()-1);
 	System.out.println("This test should return '-25' at the end of the list");
 	System.out.println(testList.get((testList.size()-1)).getReturnValue());
@@ -217,8 +225,35 @@ public class LinkedListTest {
 	System.out.println("Test 35. The return value should be null: " + testRO.getReturnValue()+ "\n");
 	
 	
+	/**
+	 * @Test - volume test adding 1 million items
+	 */
+	System.out.println("Test 36. Adding one million items to the list:");
+	List oneMillionTestList = new LinkedList();
+	int k = 0;
+	for (k=0; k<= 10000; k++) {
+		oneMillionTestList.add(k);
+	}
+	System.out.println("Finished adding one million items to the list:");
 	
+	/**
+	 * @Test - volume test adding and removing an object at a specific position in the 1 million list
+	 */
+	System.out.println("Test 37. Adding and removing items from the oneMillionTestList");
+	oneMillionTestList.add(2670,"The Orange House");
+	System.out.println("The object added was " + oneMillionTestList.get(2670).getReturnValue().toString());
+	oneMillionTestList.remove(1000);
+	oneMillionTestList.remove(2500);
+	oneMillionTestList.remove(5000);
+	oneMillionTestList.remove(7500);
+	System.out.println("The object next to the one removed was " + oneMillionTestList.get(7500).getReturnValue().toString());
+	System.out.println("Finished adding and removing from the oneMillionTestList");
+	System.out.println("The size of the list is now " + oneMillionTestList.size());
+
 	
+//	printOneMillionList(oneMillionTestList);
+// Throws a StackOverFlowError at 100,000 items because the list is built recursively
+// can only manage to 10,000 items
 	
 	
 	} // end of psvm
@@ -229,36 +264,41 @@ public class LinkedListTest {
 	 * @param the list to be printed
 	 */
 	
-	public static String printList(List testList) { 
+	public static void printList(List testList) { 
 		if (testList.isEmpty()) {
-			return "The list is empty";
+			System.out.println("The list is empty");
 		} else {
-			String s = "";
-			for (int i=0; i <= testList.size()-1; i++) {
-				s = s + ("Element " + i + " is: " + testList.get(i).getReturnValue().toString() +"\n");
+			for (int i=0; i < testList.size(); i++) {
+				System.out.println("Element " + i + " is " + testList.get(i).getReturnValue().toString());
 			}
-			return s;
 		}
 	}
 	
-	public static String printListWithCommas(List testList) { 
+	public static void printListWithCommas(List testList) { 
 		if (testList.isEmpty()) {
-			return "The list is empty";
+			System.out.println("The list is empty");
 		} else {
 			String s = "";
-			for (int i=0; i <= testList.size()-1; i++) {
+			for (int i=0; i < testList.size(); i++) {
 				if (i == testList.size()-1) {
-					s = s + (testList.get(i).getReturnValue().toString() +"");
+					s = s + testList.get(i).getReturnValue().toString() +"\n";
 				} else { 
-					s = s + (testList.get(i).getReturnValue().toString() +", ");
+					s = s + testList.get(i).getReturnValue().toString() +",";
 				}
 			}
-			return s;
+		System.out.println(s);
 		}
 	}
 	
-	
+	public static void printOneMillionList(List testList) { 
+		if (testList.isEmpty()) {
+			System.out.println("The list is empty");
+		} else {
+			for (int i=0; i < testList.size(); i++) {
+				System.out.println(testList.get(i).getReturnValue().toString() +"\n");
+			}
+		}
+	}
 	
 } // end of class
-
 
