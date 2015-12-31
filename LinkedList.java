@@ -7,6 +7,7 @@ public class LinkedList implements List {
 	
 	private Object head;
 	private LinkedList nextList;
+	private int size;
 	
 	/**
 	* Constructor of LinkedList
@@ -16,6 +17,7 @@ public class LinkedList implements List {
 	public LinkedList() {
 		this.head = null;
 		this.nextList = null; 
+		this.size = 0;
 	} 	
 
 	public Object getHead() { 		
@@ -52,14 +54,16 @@ public class LinkedList implements List {
 	 */
 	@Override
 	public int size() {
-		if (head == null) { // list is empty
-			return 0;
-		} else if (this.nextList == null) { // we are at the end of the list
-			return 1;
-		} else {
-			return (1 + nextList.size()); // not at the end of the list, count 1 and move to the next object in in the list until nextList == null
-		} 
-	} // end of size()
+		return size;
+	}
+//		if (head == null) { // list is empty
+//			return 0;
+//		} else if (this.nextList == null) { // we are at the end of the list
+//			return 1;
+//		} else {
+//			return (1 + nextList.size()); // not at the end of the list, count 1 and move to the next object in in the list until nextList == null
+//		}
+//	}
 	
 
 	/** 
@@ -118,10 +122,12 @@ public class LinkedList implements List {
 			ReturnObject myRO = new ReturnObjectImpl(this.head); // return object at head of list
 			if (nextList == null) {
 				this.head = null; // signals an empty list
+				size--;
 			} else {
 				head = nextList.getHead(); // copy object at the head of the list following, into the existing head, to leave a null object
 				this.nextList = nextList.getNextList(); // move pointer nextList to the list one along (nextList.getNext()), around the empty object
-			}	
+				size--;
+			}
 			return myRO;
 		
 		} else {
@@ -167,8 +173,8 @@ public class LinkedList implements List {
 				newList.nextList = this.getNextList();	// this.getNextList is pointer from head to object B after
 				this.nextList = newList;           // finally, set nextList of the new combined list
 			}
+			size++;
 			return new ReturnObjectImpl(null);
-			
 		} else {
 			return nextList.add(index-1, item);
 		}
@@ -197,10 +203,12 @@ public class LinkedList implements List {
 		
 		if (this.isEmpty() == true) { // list is empty, add here
 			head = item;
+			size++;
 			
 		} else if (nextList == null) { // if we are at end of list
 			LinkedList newList  = new LinkedList();
 			newList.add(item);
+			size++;
 			nextList = newList;	
 		} else {
 			nextList.add(item);
