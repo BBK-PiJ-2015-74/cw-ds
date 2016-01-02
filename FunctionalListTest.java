@@ -1,7 +1,9 @@
 /**
- * Test file for interface FunctionalList
- * @author Lburge01 BBK-PiJ-2015-75 (Lucie Burgess)
- * @See#FunctionalLinkedList.java - implementation of interface
+ * Test file for interface FunctionalList. This file can be used to test FunctionalLinkedList or FunctionalArrayList 
+ * 		since they use the same interface, FunctionalList and List.
+ * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
+ * @See#FunctionalLinkedList - linked list implementation of interface
+ * @See#FunctionalArrayList - array list implementation of interface
  * @See#FunctionalList.java - interface
  * @See#List.java - interface
  */
@@ -16,7 +18,7 @@ public class FunctionalListTest {
 		/**
 		 * @Test - check the list is empty, that it has zero size, returns EMPTY_STRUCTURE when get() is called
 		 */
-		FunctionalList emptyFL = new FunctionalLinkedList();
+		FunctionalList emptyFL = new FunctionalArrayList();
 		
 		System.out.println("Test 1. Checking the functional list is empty");
 		System.out.println(emptyFL.isEmpty()==true? "Everything is working correctly" : "There is a problem");
@@ -49,7 +51,7 @@ public class FunctionalListTest {
 		 * @Test - check that objects can be added to the list
 		 */
 		
-		FunctionalList originalFL = new FunctionalLinkedList();
+		FunctionalList originalFL = new FunctionalArrayList();
 		
 		int object0 = 1;
 		double object1 = -1000.876;
@@ -75,12 +77,12 @@ public class FunctionalListTest {
 		int sizeOfOriginalList = originalFL.size();
 
 		System.out.println("Test 8. Checking we can print the full functional list with all " + sizeOfOriginalList + " elements");
-		System.out.println(printList(originalFL));
+		printList(originalFL);
 		System.out.println("The size of the list is " + originalFL.size() + "\n");
 	
-		FunctionalList inputFL = new FunctionalLinkedList();	
+		FunctionalList inputFL = new FunctionalArrayList();	
 		inputFL = originalFL;
-		FunctionalList outputFL = new FunctionalLinkedList();
+		FunctionalList outputFL = new FunctionalArrayList();
 		
 		for (int count = 0; count <= sizeOfOriginalList; count++) { 
 
@@ -93,26 +95,24 @@ public class FunctionalListTest {
 			System.out.println(inputFL.head().getError());
 			System.out.println("Checking the list is returned without the first element when rest() is called");
 			outputFL = inputFL.rest();
-			System.out.println(printList(outputFL));
+			printList(outputFL);
 			System.out.println("The size of the output list is now " + outputFL.size());
 			System.out.println("The size of the original list is still " + originalFL.size()+ "\n");
 			inputFL = outputFL;	
 		}
 	
 		System.out.println("To prove the original list is still unchanged, here it is:");
-		System.out.println(printList(originalFL));
+		printList(originalFL);
 
 	} // end of psvm
-
-	public static String printList(FunctionalList testFL) { 
+	
+	public static void printList(FunctionalList testFL) { 
 		if (testFL.isEmpty()) {
-			return "The list is empty";
+			System.out.println("The list is empty");
 		} else {
-			String s = "";
-			for (int i=0; i <= testFL.size()-1; i++) {
-				s = s + ("Element " + i + " is: " + testFL.get(i).getReturnValue().toString() +"\n");
+			for (int i=0; i < testFL.size(); i++) {
+				System.out.println("Element " + i + " is " + testFL.get(i).getReturnValue().toString());
 			}
-			return s;
 		}
 	}
 	
