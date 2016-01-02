@@ -82,22 +82,24 @@ public class StackTest {
 		int itemsToBePushed = 300000;
 		System.out.println("Test 16. Pushing " +itemsToBePushed + " items to the stack: ");
 		int k = 0;
-		for (k=0; k<= itemsToBePushed; k++) {
+		for (k=0; k< itemsToBePushed; k++) {
 			testStack.push(k);
 		}
 		System.out.println("Finished adding items to the stack");
 	
 		System.out.println("Test 17. The item on the top of the stack is " + testStack.top().getReturnValue().toString());
+		System.out.println("Test 18. The size of the stack is now " + testStack.size());
 		
 		int itemsToBePopped = 25000;
-		System.out.println("Test 18. Popping " +itemsToBePopped + " items from the stack: ");
+		System.out.println("Test 19. Popping " +itemsToBePopped + " items from the stack: ");
 		int m = 0;
-		for (m=0; m<= itemsToBePopped; m++) {
+		for (m=0; m< itemsToBePopped; m++) {
 			testStack.pop();
 		}
 		System.out.println("Finished popping items from the stack");
 		
-		System.out.println("Test 19. The item on the top of the stack is " + testStack.top().getReturnValue().toString());
+		System.out.println("Test 20. The item on the top of the stack is " + testStack.top().getReturnValue().toString());
+		System.out.println("Test 21. The size of the stack is now " + testStack.size());
 		
 		System.out.println("END OF TEST");
 		
