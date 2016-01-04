@@ -11,8 +11,8 @@ public class ImprovedStackImpl implements ImprovedStack {
 	protected List underlyingList;
 	
 	/**
-	 * Constructor as per AbstractStack, which does not check whether the underlying list provided is null
-	 * @param list the list to be used as the underlying datastructure
+	 * Constructor which does not check whether the underlying list provided is null
+	 * @param list the list to be used as the underlying data structure
 	 */
 	public ImprovedStackImpl(List list) {
 		  this.underlyingList = list;			
@@ -20,6 +20,7 @@ public class ImprovedStackImpl implements ImprovedStack {
 
 	/**
 	 * @see Stack#isEmpty()
+	 * @return false if the list is empty, true otherwise
 	 */
 	@Override
 	public boolean isEmpty() {
@@ -32,6 +33,7 @@ public class ImprovedStackImpl implements ImprovedStack {
 
 	/**
 	 * @see Stack#size()
+	 * @return the number of elements in the stack
 	 */
 	public int size() {
 		if (underlyingList != null) {
@@ -43,6 +45,8 @@ public class ImprovedStackImpl implements ImprovedStack {
 
 	/**
 	 * @see Stack#push()
+	 * Adds items to the top of the stack
+	 * * NB. Stacks are LIFO so the top of the stack is the last item in the list
 	 */
 	@Override
 	public void push(Object item) { 
@@ -55,6 +59,8 @@ public class ImprovedStackImpl implements ImprovedStack {
 
 	/**
 	 * @see Stack#top()
+	 * @return the object at the top of the stack or an error message if the stack is empty
+	 * * NB. Stacks are LIFO so the top of the stack is the last item in the list
 	 */
 	@Override
 	public ReturnObject top() {
@@ -67,13 +73,15 @@ public class ImprovedStackImpl implements ImprovedStack {
 
 	/**
 	 * @see Stack#pop()
+	 * @return the object at the top of the stack and removes it from the stack, or a valid error message
+	 * NB. Stacks are LIFO so the top of the stack is the last item in the list
 	 */
 	@Override
 	public ReturnObject pop() {
 		if (this.isEmpty()) {		
 			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
 		} else {
-			return underlyingList.remove((underlyingList.size()-1)); // remove the top of the stack (last item in the list)
+			return underlyingList.remove((underlyingList.size()-1)); 
 		}
 	}
 
@@ -89,7 +97,7 @@ public class ImprovedStackImpl implements ImprovedStack {
 			List reversedList = new ArrayList();
 			ImprovedStack reversedStack = new ImprovedStackImpl(reversedList);
 			int i = 0;
-			for (i = this.size()-1; i>= 0; i--) { // from the top to the bottom of the existing Stack based on underlyingList
+			for (i = this.size()-1; i>= 0; i--) { // from the top to the bottom of the existing Stack
 				Object obj = underlyingList.get(i).getReturnValue();
 				reversedList.add(obj);	
 			}
@@ -117,5 +125,5 @@ public class ImprovedStackImpl implements ImprovedStack {
 		}
 	}
 	
-} // end of class	
+} 
 

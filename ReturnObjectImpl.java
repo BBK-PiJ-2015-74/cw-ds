@@ -1,6 +1,6 @@
 /**
  * Implementation of interface ReturnObject
- * @author Lburge01 BBK-PiJ-2015-75 (Lucie Burgess)
+ * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
  * ReturnObjectImpl: This class must have two constructors, each of them with only one parameter.
  */
 
@@ -15,6 +15,7 @@ public class ReturnObjectImpl implements ReturnObject {
  	* The constructor used for successful operations must receive an Object
  	* In the case of successful operations, hasError() returns false, therefore boolean whetherThereIsAnError is false
  	* @param myObject 
+ 	* @return whether there has been an error
  	*/
  	public ReturnObjectImpl (Object myObject) {
 		this.myObject = myObject;
@@ -40,10 +41,8 @@ public class ReturnObjectImpl implements ReturnObject {
  	}
 	
 	/**
-	 * Returns whether there has been an error
 	 * @return whether there has been an error
-	 * Returns false if there is no error
-	 * Returns true if there IS an error
+	 * Returns false if there is no error, true if there is an error
 	 * If hasError() is called on a null object, hasError() return true because this should correspond to error EMPTY_STRUCTURE
 	 */
 	@Override
@@ -52,18 +51,12 @@ public class ReturnObjectImpl implements ReturnObject {
 	}
 
 	/**
-	 * Returns the error message. 
 	 * This method must return NO_ERROR if and only if {@hasError} returns false.
 	 * @return the error message
 	 */
 	@Override
 	public ErrorMessage getError() {
 		return myError;
-//		if (whetherThereIsAnError == false) {
-//			return ErrorMessage.NO_ERROR; 
-//		} else {
-//			return myError; 
-//		}	
 	}
 
 	/**

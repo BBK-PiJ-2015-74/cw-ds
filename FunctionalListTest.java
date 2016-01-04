@@ -1,11 +1,11 @@
 /**
  * Test file for interface FunctionalList. This file can be used to test FunctionalLinkedList or FunctionalArrayList 
- * 		since they use the same interface, FunctionalList and List.
+ * 		since they use the same interface, FunctionalList and List, with some minimal changes when the FunctionaList is declared
  * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
- * @See#FunctionalLinkedList - linked list implementation of interface
- * @See#FunctionalArrayList - array list implementation of interface
- * @See#FunctionalList.java - interface
- * @See#List.java - interface
+ * @See FunctionalLinkedList - linked list implementation of interface
+ * @See FunctionalArrayList - array list implementation of interface
+ * @See FunctionalList.java - interface
+ * @See List.java - interface
  */
 
 public class FunctionalListTest {
@@ -18,7 +18,7 @@ public class FunctionalListTest {
 		/**
 		 * @Test - check the list is empty, that it has zero size, returns EMPTY_STRUCTURE when get() is called
 		 */
-		FunctionalList emptyFL = new FunctionalArrayList();
+		FunctionalList emptyFL = new FunctionalLinkedList();
 		
 		System.out.println("Test 1. Checking the functional list is empty");
 		System.out.println(emptyFL.isEmpty()==true? "Everything is working correctly" : "There is a problem");
@@ -51,7 +51,7 @@ public class FunctionalListTest {
 		 * @Test - check that objects can be added to the list
 		 */
 		
-		FunctionalList originalFL = new FunctionalArrayList();
+		FunctionalList originalFL = new FunctionalLinkedList();
 		
 		int object0 = 1;
 		double object1 = -1000.876;
@@ -80,9 +80,9 @@ public class FunctionalListTest {
 		printList(originalFL);
 		System.out.println("The size of the list is " + originalFL.size() + "\n");
 	
-		FunctionalList inputFL = new FunctionalArrayList();	
+		FunctionalList inputFL = new FunctionalLinkedList();	
 		inputFL = originalFL;
-		FunctionalList outputFL = new FunctionalArrayList();
+		FunctionalList outputFL = new FunctionalLinkedList();
 		
 		for (int count = 0; count <= sizeOfOriginalList; count++) { 
 
@@ -104,7 +104,7 @@ public class FunctionalListTest {
 		System.out.println("To prove the original list is still unchanged, here it is:");
 		printList(originalFL);
 
-	} // end of psvm
+	} 
 	
 	public static void printList(FunctionalList testFL) { 
 		if (testFL.isEmpty()) {
@@ -117,4 +117,4 @@ public class FunctionalListTest {
 	}
 	
 	
-} // end of class
+}

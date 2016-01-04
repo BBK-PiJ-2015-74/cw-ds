@@ -1,18 +1,9 @@
 /**
  * StackImpl.java is a class which extends AbstractStack, which implements Interface Stack
  * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
+ * @see AbstractStack.java
+ * @see Stack.java
  */
-
-// If I'm understanding you correctly this should be fine at runtime:
-// Stack nullListStack = new StackImpl(null);
-// Correct. That line must not throw a NullPointerException. 
-// But as soon as you try to do anything to that Stack instance at runtime, for example:
-// nullListStack.push("oops");
-// The specification requires that a NullPointerException is thrown?
-// Correct again. Please note that you do not have to do anything especial for a NullPointerException to be thrown at this point. 
-// As the internal pointer is null (given the constructor of AbstractStack), Java will throw the exception as soon as you try to call any methods on it.
-// not sure if I need to use override here or not. Override is used to override methods in the ancestor class. The ancestor class here is AbstractStack
-
 
 public class StackImpl extends AbstractStack {
 	
@@ -24,7 +15,7 @@ public class StackImpl extends AbstractStack {
     * Therefore, I have ensured that NPEs are not thrown by adding operations for when internalList == null.
 	*/
 
-	public StackImpl (List list) {  // protected List internalList; 
+	public StackImpl (List list) { 
 		super(list);				// special constructor for class which extends another class
     }
 	
@@ -43,7 +34,7 @@ public class StackImpl extends AbstractStack {
 
 	/**
 	* @see Stack#size()
-	*  @return the number of items currently in the stack
+	* @return the number of items currently in the stack
 	*/
 	@Override
 	public int size() {
@@ -60,8 +51,8 @@ public class StackImpl extends AbstractStack {
 	 * @param item the new item to be added
 	 * if internalList is null, nothing happens (routine executes but returns void)
 	 * if item is null, the add(item) method will automatically return an error
+	 * NB. the top of the stack is the end of the list (stacks are LIFO)
 	 */
-	// the top of the stack is the end of the list (Stacks are LIFO)
 	@Override
 	public void push(Object item) { 
 		if (internalList != null) {
@@ -75,14 +66,14 @@ public class StackImpl extends AbstractStack {
 	 * @see Stack#top()
 	 * @return If stack is not empty, the item on the top is returned. If the
 	 *         stack is empty, an appropriate error.
+	 * NB. the top of the stack is the last item in the list (stacks are LIFO)
 	 */
-	// the top of the stack is the LAST item in the list (Stacks are LIFO)
 	@Override
 	public ReturnObject top() {
 		if (this.isEmpty()) {				
 			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
 		} else {
-		return internalList.get((internalList.size()-1)); // return the top of the stack (last item in the list)
+		return internalList.get((internalList.size()-1)); 
 		}
 	}
 	
@@ -90,18 +81,18 @@ public class StackImpl extends AbstractStack {
 	 * @see Stack#pop()
 	 * Returns the element at the top of the stack. The element is
 	 * removed from the stack.
+	 * NB. the top of the stack is the last item in the list (stacks are LIFO)
 	 * 
 	 * @return If stack is not empty, the item on the top is returned. If the
 	 *         stack is empty, an appropriate error.
 	 */
-	// the top of the stack is the LAST item in the list (Stacks are LIFO)
 	@Override
 	public ReturnObject pop() {
 		if (this.isEmpty()) {		
 			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
 		} else {
-			return internalList.remove((internalList.size()-1)); // remove the top of the stack (last item in the list)
+			return internalList.remove((internalList.size()-1)); 
 		}
 	}
 
-} // end of class
+} 

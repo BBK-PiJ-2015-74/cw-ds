@@ -16,7 +16,7 @@ public class ReturnObjectTest {
 		*/	
 		ReturnObject myTestRO1 = new ReturnObjectImpl(null);
 		System.out.println("Test 1");
-		System.out.println(myTestRO1);
+		System.out.println(myTestRO1.getReturnValue());
 		System.out.println("hasError() should return true when called on a null object");
 		System.out.println((myTestRO1.hasError() == true)? "Everything is working correctly" : "There is a problem");
 		
@@ -53,7 +53,7 @@ public class ReturnObjectTest {
 		Object testObject4 = "thisIsATest";
 		ReturnObject myTestRO4 = new ReturnObjectImpl(testObject4);
 		System.out.println("Test 4");
-		System.out.println(testObject4);
+		System.out.println(myTestRO4.getReturnValue().toString());
 		System.out.println("hasError() should return false when a valid test object is passed");
 		System.out.println(myTestRO4.hasError() == false? "Everything is working correctly" : "There is a problem"); 
 		
@@ -65,7 +65,7 @@ public class ReturnObjectTest {
 		Object testObject5 = 3.142;
 		ReturnObject myTestRO5 = new ReturnObjectImpl(testObject5);
 		System.out.println("Test 5");
-		System.out.println(testObject5);
+		System.out.println(myTestRO5.getReturnValue().toString());
 		System.out.println("getError() should return NO_ERROR when a valid test object is passed");
 		System.out.println(myTestRO5.getError() == ErrorMessage.NO_ERROR? "Everything is working correctly" : "There is a problem"); 
 		
@@ -76,7 +76,7 @@ public class ReturnObjectTest {
 		Object testObject6 = "thisIsAnotherTest";
 		ReturnObject myTestRO6 = new ReturnObjectImpl(testObject6);
 		System.out.println("Test 6");
-		System.out.println(testObject6);
+		System.out.println(myTestRO6.getReturnValue().toString());
 		System.out.println("getError() should return NO_ERROR if and only if hasError() returns false");
 		System.out.println(myTestRO6.hasError() == false && myTestRO6.getError() == ErrorMessage.NO_ERROR? "Everything is working correctly" : "There is a problem"); 	
 		
@@ -88,7 +88,7 @@ public class ReturnObjectTest {
 		Object testObject7 = 70000000;
 		ReturnObject myTestRO7 = new ReturnObjectImpl(testObject7);
 		System.out.println("Test 7");
-		System.out.println(testObject7);
+		System.out.println(myTestRO7.getReturnValue().toString());
 		System.out.println("getReturnValue() should return the test object if a valid object is passed");
 		System.out.println(myTestRO7.getReturnValue() == testObject7? "Everything is working correctly" : "There is a problem"); 	
 		
@@ -100,15 +100,38 @@ public class ReturnObjectTest {
 		Object testObject8 = 800000000;
 		ReturnObject myTestRO8 = new ReturnObjectImpl(testObject8);
 		System.out.println("Test 8");
-		System.out.println(testObject8);
+		System.out.println(myTestRO8.getReturnValue().toString());
 		System.out.println("getReturnValue() should return the object if hasError() returns false i.e. if there is no error");
 		System.out.println(myTestRO8.hasError() == false && myTestRO8.getReturnValue() == testObject8? "Everything is working correctly" : "There is a problem"); 	
 		
-		// test a null input object (specified as Object myObject)
+		// test a null input object (specified as Object myObject = null)
 		
 		/**
-		 * TO DO
+		 * hasError() should return false on a valid null input object
 		 */
+		Object testObject23 = null;
+		ReturnObject myTestRO23 = new ReturnObjectImpl(testObject23);
+		System.out.println("Test 23");
+		System.out.println(testObject23);
+		System.out.println("hasError() should return false when a valid null test object is passed");
+		System.out.println(myTestRO23.hasError() == false? "Everything is working correctly" : "There is a problem"); 
+		
+		/**
+		 * getError() should return null on a valid null input object
+		 */
+		System.out.println("Test 24");
+		System.out.println(testObject23);
+		System.out.println("getError() should return NO_ERROR when a valid null test object is passed");
+		System.out.println(myTestRO23.getError() == ErrorMessage.NO_ERROR? "Everything is working correctly" : "There is a problem"); 
+		
+		/**
+		 * getReturnValue() should return null on a valid null input object
+		 */
+		System.out.println("Test 25");
+		System.out.println(testObject23);
+		System.out.println("getReturnValue() should return null when a valid null test object is passed");
+		System.out.println(myTestRO23.getReturnValue() == null? "Everything is working correctly" : "There is a problem"); 
+		
 		
 		/**
 		 * getReturnValue() should return null for a valid null test object when hasError() is false
@@ -130,9 +153,11 @@ public class ReturnObjectTest {
 		System.out.println("The test object is null and should be " + "null");
 		System.out.println(myTestRO10.hasError() == true && myTestRO10.getReturnValue() == null? "Everything is working correctly" : "There is a problem"); 	
 		
-		// Scenarios 9 and 10 don't seem to make sense when taken together as they return different results for a null input object
+		// Scenarios 9 and 10 return different values because Java recognises the difference between a null Object and (null)
 		
-		// Now testing on error messages
+		/**
+		 * Testing on error messages
+		 */
 		
 		/**
 		 * hasError() should return true when called on EMPTY STRUCTURE 
@@ -232,7 +257,5 @@ public class ReturnObjectTest {
 				
 		System.out.println("END OF TEST FILE");
 		
-		
-	} // end of psvm
-
-} // end of class
+	} 
+} 

@@ -1,18 +1,17 @@
 /**
  * Implementation of interface SampleableList
- * @author Lburge01 BBK-PiJ-2015-75 (Lucie Burgess)
- * @See#SampleableList.java
- * @See#List.java
+ * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
+ * @see SampleableList.java
+ * @see LinkedList.java
+ * @see List.java
  */
 
 
 public class SampleableListImpl extends LinkedList implements SampleableList {
 
 	/**
-	 * Returns a list containing the first, third, fifth...
-	 * items of this list, or an empty list if the list is empty. 
-	 * 
-	 * @return a list containing the first, third, fifth... items of this list
+	 * @see SampleableList#sample()
+	 * @return a list containing the first, third, fifth... items of this list, or an empty list if the list is empty
 	 */
 	@Override
 	public SampleableList sample() {
@@ -30,14 +29,14 @@ public class SampleableListImpl extends LinkedList implements SampleableList {
 		}
 	}
 
-} // end of class
+} 
 
 // the following code also works with removing elements 0, 1, 2, 3, 4 ... in succession from the original list (the indices are updated as the loop progresses)
 // hence it doesn't remove them all, but in fact just elements 1,3,5,7 ... from the original list
 // but changes the original list. In this question it's not stated whether or not it matters if the underlying list changes
-// from line 23 in the else statement:
+// from line 21:
 // } else {
-// 		for (int index = 0; (index < this.size(); index++) {
+// 		for (int index = 0; index < this.size(); index++) {
 // 			FunctionalList myFL = new FunctionalLinkedList();
 //			this.remove(index);
 //			myFL = this;

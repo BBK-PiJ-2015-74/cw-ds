@@ -13,6 +13,7 @@ public class LinkedList implements List {
 	* Constructor of LinkedList
 	* obj is the first object in the list
 	* nextList is the pointer to the rest of the list (which is empty if head == null)
+	* Each list is just an object pointing to another list behind it
 	*/
 	public LinkedList() {
 		this.head = null;
@@ -32,6 +33,9 @@ public class LinkedList implements List {
 		this.nextList = newList;
 	}
 	
+	public void setHead(LinkedList newList) {
+		this.head = newList.getHead();
+	}
 	
 	/**
 	 * @see List#isEmpty()
@@ -50,20 +54,22 @@ public class LinkedList implements List {
 	/**
 	 * @see List#size()
 	 * @return the number of items currently in the list
-	 * Note index starts at 0, so the number of items in the list is size = (index + 1)
+	 * Note index starts at 0, so the number of items in the list so size = index + 1
 	 */
 	@Override
 	public int size() {
 		return size;
 	}
-//		if (head == null) { // list is empty
-//			return 0;
-//		} else if (this.nextList == null) { // we are at the end of the list
-//			return 1;
-//		} else {
-//			return (1 + nextList.size()); // not at the end of the list, count 1 and move to the next object in in the list until nextList == null
+//		Recursive code removed due to efficiency of method:	
+//		public int size() {
+// 			if (head == null) { // list is empty
+//				return 0;
+//			} else if (this.nextList == null) { // we are at the end of the list
+//				return 1;
+//			} else {
+//				return (1 + nextList.size()); // not at the end of the list, count 1 and move to the next object in in the list until nextList == null
+//			}
 //		}
-//	}
 	
 
 	/** 
@@ -90,7 +96,7 @@ public class LinkedList implements List {
 			return new ReturnObjectImpl(getHead());
 		
 		} else {
-			return nextList.get(index-1); // ask the rest of the list, as if the next element is at index 0, i.e. as if next element is the head
+			return nextList.get(index-1); // ask the rest of the list, as if the next element is the head
 		}
 	}
 
@@ -114,7 +120,7 @@ public class LinkedList implements List {
 		}
 
 		if (index < 0 || index > (this.size()-1)) {
-			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is incorrect @return the appropriate error message
+			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is incorrect @return INDEX_OUT_OF_BOUNDS
 		}
 		
 		else if (index == 0) {
@@ -122,7 +128,7 @@ public class LinkedList implements List {
 			if (nextList == null) {
 				this.head = null; // signals an empty list
 			} else {
-				head = nextList.getHead(); // copy object at the head of the list following, into the existing head, to leave a null object
+				this.head = nextList.getHead(); // copy object at the head of the list following, into the existing head, to leave a null object 
 				this.nextList = nextList.getNextList(); // move pointer nextList to the list one along (nextList.getNext()), around the empty object
 			}
 			size--;
@@ -130,7 +136,7 @@ public class LinkedList implements List {
 		
 		} else {
 			size--;
-			return nextList.remove(index-1); // remove next element like it's the head - if at n = 1, needs to be zero, so n-1
+			return nextList.remove(index-1); // remove next element like it's the head
 		}	
 	}
 
@@ -161,7 +167,7 @@ public class LinkedList implements List {
 			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is incorrect @return the appropriate error message
 		}
 
-		else if (index == 0) {			// **** was if not else if
+		else if (index == 0) {			
 			if (this.isEmpty()) {
 				head = item; 	// if list is empty, add item to head
 			} else {			
@@ -197,8 +203,8 @@ public class LinkedList implements List {
 	@Override
 	public ReturnObject add(Object item) {
 		
-		if (item == null) { // if we try to add a null item to the list
-			return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT); // @return a ReturnObject containing an appropriate error message
+		if (item == null) { 
+			return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT); // @return INVALID_ARGUMENT if we try to add null object
 		}
 		
 		if (this.isEmpty() == true) { // list is empty, add here
@@ -215,7 +221,7 @@ public class LinkedList implements List {
 		return new ReturnObjectImpl(null); // @return a ReturnObject, empty if the operation is successful
 	}
 	
-} // end of LinkedList class
+}
 
 
 

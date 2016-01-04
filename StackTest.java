@@ -1,7 +1,6 @@
 /**
  * StackTest.java is a class which tests interface Stack (implemented through Abstract Stack and StackImpl)
  * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
- * 
  */
 
 public class StackTest {
@@ -70,10 +69,8 @@ public class StackTest {
 		emptyStack.push(null);
 		System.out.println("Everything is working correctly");
 		System.out.println("The item on the top of the stack is " + emptyStack.top().getReturnValue().toString());
-		// NB. Not quite sure I understand the interaction between Stack.push() and List here - if a null item is added to the list, 
-		// the list will return an INVALID_ARGUMENT error as a return object
-		// but we can't access that from the stack test, because stack.push() returns void, not a ReturnObject
-		// we can do emptyList.add(null).getError, but not emptyStack.push(null).getError(), because push() returns void
+		
+		// NB. we can do emptyList.add(null).getError here, but not emptyStack.push(null).getError(), because push() returns void
 		
 		List testList = new ArrayList();
 		
@@ -104,5 +101,5 @@ public class StackTest {
 		System.out.println("END OF TEST");
 		
 	
-	} // end of psvm
-} // end of class
+	}
+}

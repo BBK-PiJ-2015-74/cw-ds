@@ -1,6 +1,6 @@
 /**
  * ArrayList is an array list implementation of interface List
- * @author Lburge01 BBK-PiJ-2015-75 (Lucie Burgess)
+ * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
  * @see #List.java
  *
  */
@@ -11,8 +11,10 @@ public class ArrayList implements List {
 	private static int basearraylength = 50; 
 
 	
-	public ArrayList() { // constructor
-		this.objectArray = new Object[ArrayList.basearraylength]; //arrays have a special type of constructor e.g. String[] employeeArray = new String[5];
+	//arrays have a special type of constructor e.g. String[] employeeArray = new String[5];	
+	
+	public ArrayList() { 
+		this.objectArray = new Object[ArrayList.basearraylength]; 
 		this.size = 0;
 	}
 
@@ -36,14 +38,7 @@ public class ArrayList implements List {
 	 */
 	@Override
 	public int size() {
-		return size; 
-//		int result = 0;
-//		for (int i = 0; i < this.objectArray.length; i++) {
-//			if (this.objectArray[i] != null) {
-//				result ++;
-//			} 
-//		}
-//		return result;
+		return size;
 	}
 	
 	/**
@@ -60,11 +55,11 @@ public class ArrayList implements List {
 	public ReturnObject get(int index) {
 		
 		if (this.isEmpty() == true) { 
-			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // if the list is empty @return the appropriate error message
+			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // if the list is empty @return EMPTY_STRUCTURE
 		}
 		
-		if (index < 0 || index > (this.size()-1)) {  // if this.size is 4, max index is 3
-			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is out of range @return the appropriate error message
+		if (index < 0 || index > (this.size()-1)) {  
+			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is out of range @return INDEX_OUT_OF_BOUNDS
 			
 		} else {
 			return new ReturnObjectImpl(objectArray[index]);
@@ -87,28 +82,28 @@ public class ArrayList implements List {
 	public ReturnObject remove(int index) {
 		
 		if (this.isEmpty() == true) { 
-			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // if the list is empty @return the appropriate error message
+			return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE); // if the list is empty @return EMPTY_STRUCTURE
 		}
 		
 		if (index < 0 || index > (this.size()-1)) {
-			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+			return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS); // if the index is out of range @return INDEX_OUT_OF_BOUNDS
 			
 		} else {		
 			Object[] destArray = new Object [this.objectArray.length];	
 			int i = 0;
 			for (i = index; i< this.size(); i++) { 
-				destArray[i] = objectArray[i];	//Copy every element from objectArray into destArray (remember destArray = srcArray) starting at the index
+				destArray[i] = objectArray[i];	
 			}
 			
 			ReturnObject objectRemoved = new ReturnObjectImpl(this.objectArray[index]);
 			size--;
 			
 			for (i = index; i< this.size(); i++) {
-				objectArray[i] = destArray[i+1];	// copy everything back from destArray (at position i+1) into objectArray (at position i), starting at the index
+				objectArray[i] = destArray[i+1];	
 			}
 			
-			if (baseArrayNeedsToBeSmaller()) {
-				this.decreaseBaseArrayLength(); //if base array is full, increase its length
+			if (baseArrayNeedsToBeSmaller()) {		// reduce size of array if necessary
+				this.decreaseBaseArrayLength(); 
 			}
 			return objectRemoved;
 		}
@@ -146,22 +141,22 @@ public class ArrayList implements List {
 		}
 		
 		// first of all we have to find the element in the array where to add the item. 
-		// Then shift everything up the array by 1 to make a space
+		// Then shift everything up the array by 1 to make a space, add the item, and copy items back
 		
 		int i = 0;
 		Object[] destArray = new Object [this.objectArray.length];	
 		
 		for (i = index; i< this.size(); i++) { 
-			destArray[i] = objectArray[i];	//Copy every element from objectArray into destArray (remember destArray = srcArray) starting at the index
+			destArray[i] = objectArray[i];	
 		}
 		
 		objectArray[index] = item;			// at item at index
 		size++;
 		
 		for (i = index; i< this.size(); i++) {
-			objectArray[i+1] = destArray[i];// copy everything back from destArray (at position i) into objectArray (at position i + 1), starting at the index
+			objectArray[i+1] = destArray[i];
 		}
-		return new ReturnObjectImpl(null); // ReturnObject is null for a successful operation when adding an object
+		return new ReturnObjectImpl(null); // ReturnObject is null for a successful operation
 	}	
 	
 	/**
@@ -220,7 +215,7 @@ public class ArrayList implements List {
 	private void decreaseBaseArrayLength() {
 		int basearraylength = this.objectArray.length;
 		
-		int decreasedbasearraylength = basearraylength/2; // dividing by 2 will return an int, not a double - will be rounded to nearest int
+		int decreasedbasearraylength = basearraylength/2; 
 		
 		if (decreasedbasearraylength < 10) { //sets 10 as the minimum size of the base array
 			decreasedbasearraylength = 10;
@@ -244,4 +239,17 @@ public class ArrayList implements List {
 		return result;
 	}
 
-} // end of class
+} 
+
+
+//Iterative code for size() method removed due to inefficiency		
+// public int size() {
+// 	int result = 0;
+//	for (int i = 0; i < this.objectArray.length; i++) {
+//		if (this.objectArray[i] != null) {
+//			result ++;
+//		} 
+//	}
+// return result;
+// }
+

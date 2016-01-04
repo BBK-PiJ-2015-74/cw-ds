@@ -145,10 +145,11 @@ public class ImprovedStackTest {
 		System.out.println("The top of the stack is " + anotherStack.top().getReturnValue().toString());
 		System.out.println("The size of the stack is " + anotherStack.size() + "\n");
 		
+		// for some reason this is not working properly when the item to be removed is the top of the stack?
 		
 		System.out.println("END OF TEST");
 		
 	
-	} // end of psvm
+	} 
 	
-} // end of class
+} 

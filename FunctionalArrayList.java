@@ -34,7 +34,7 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
 	@Override
 	public FunctionalList rest() {
 		FunctionalList myFL = new FunctionalArrayList();
-	    if (this.isEmpty() == true) { // if the original list is empty, return an empty list
+	    if (this.isEmpty() == true) { 
 	    	return myFL;
 	    } else {	
 	    	for (int index = 1; index <= (this.size()-1); index++) {
@@ -45,6 +45,6 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
 	    }
 	}
 		
-} // end of class
+}
 
 

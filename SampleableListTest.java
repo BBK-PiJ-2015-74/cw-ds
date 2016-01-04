@@ -1,10 +1,10 @@
 /**
  * Test file for interface SampleableList
- * @author Lburge01 BBK-PiJ-2015-75 (Lucie Burgess)
- * @See#SampleableListImpl.java - implementation of interface
- * @See#SampleableList.java - interface
- * @See#LinkedList.java - interface
- * @See#List.java - interface
+ * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
+ * @see SampleableListImpl.java - implementation of interface
+ * @see SampleableList.java - interface
+ * @see LinkedList.java - interface
+ * @see List.java - interface
  */
 
 public class SampleableListTest {
@@ -98,11 +98,8 @@ public class SampleableListTest {
 		 */
 		System.out.println("Test 11. Checking the sampled list is returned when sample() is called");
 		System.out.println(printList(anotherlistToBeSampled.sample()));
-		
-		
-
-
-	} // end of psvm
+	
+	} 
 
 	public static String printList(SampleableList listToBeSampled) { 
 		if (listToBeSampled.isEmpty()) {
@@ -115,7 +112,5 @@ public class SampleableListTest {
 			return s;
 		}
 	}
-	
-	
-} // end of class
+} 
 

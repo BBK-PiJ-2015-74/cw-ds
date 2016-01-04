@@ -1,11 +1,9 @@
 
 /**
  * ArrayListTest is a test of interface List, in this case constructed to work with implementation ArrayList.java
- * @author Lburge01 BBK-PiJ-2015-75 (Lucie Burgess)
+ * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
  *
  */
-
-//import java.util.Arrays;	// required to be able to print arrays
 
 public class ArrayListTest {
 
@@ -142,7 +140,7 @@ public class ArrayListTest {
 	System.out.println(testList.get(testList.size()-1).getReturnValue() + "\n");
 	
 	/**
-	 * @Test - test add (index, item) with errors
+	 * @Test - test add(index, item) with errors
 	 */
 	
 	/**
@@ -170,7 +168,7 @@ public class ArrayListTest {
 	System.out.println("The size of the list is now " + testList.size()+ "\n");
 	
 	/**
-	 * @Test - test remove (index) without errors
+	 * @Test - test remove(index) without errors
 	 */
 	System.out.println("Test 27. Removing object at position zero");
 	System.out.println("The object to be removed is: " + testList.get(0).getReturnValue());
@@ -233,7 +231,7 @@ public class ArrayListTest {
 	System.out.println("Test 36. Adding one million items to the list:");
 	List oneMillionTestList = new ArrayList();
 	int k = 0;
-	for (k=0; k<= 1000000; k++) {
+	for (k=0; k< 1000000; k++) {
 		oneMillionTestList.add(k);
 	}
 	System.out.println("Finished adding one million items to the list:");
@@ -243,18 +241,15 @@ public class ArrayListTest {
 	 */
 	System.out.println("Test 37. Adding and removing items from the oneMillionTestList");
 	oneMillionTestList.add(267000,"The Orange House");
-	System.out.println("The object added was" + oneMillionTestList.get(267000).getReturnValue().toString());
+	System.out.println("The object added was " + oneMillionTestList.get(267000).getReturnValue().toString());
 	oneMillionTestList.remove(100000);
 	oneMillionTestList.remove(250000);
 	oneMillionTestList.remove(500000);
 	oneMillionTestList.remove(750000);
-	System.out.println("The object next to the one removed was" + oneMillionTestList.get(750000).getReturnValue().toString());
+	System.out.println("The object next to the one removed was " + oneMillionTestList.get(750000).getReturnValue().toString());
 	System.out.println("Finished adding and removing from the oneMillionTestList");
 	System.out.println("The size of the list is now " + oneMillionTestList.size());
-	
-	
-//	printOneMillionList(oneMillionTestList);
-	
+
 	
 	} // end of psvm
 	
