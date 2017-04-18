@@ -1,6 +1,6 @@
 /**
  * Implementation of interface ReturnObject
- * @author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
+ * @author Lburge01 BBK-PiJ-2015-74 
  * ReturnObjectImpl: This class must have two constructors, each of them with only one parameter.
  */
 
