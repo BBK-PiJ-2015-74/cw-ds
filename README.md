@@ -2,7 +2,7 @@
 
 This is the repository for Assignment 2 coursework for the Birkbeck Programming in Java course 
 Created in week 10 of the course 3 December 2015
-@author Lburge01 BBK-PiJ-2015-74 (Lucie Burgess)
+@author Lburge01 BBK-PiJ-2015-74
 
 
 Files provided in the src-repo directory, already included as part of the coursework:
